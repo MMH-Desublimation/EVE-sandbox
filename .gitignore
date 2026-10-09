@@ -1,0 +1,35 @@
+# 依赖
+node_modules/
+
+# 构建/提取产物
+dist/
+build/
+host/bin/
+host/obj/
+.pyfa-core/
+spike/pyfa_modules/
+spike/pyfa_runtime/
+**/__pycache__/
+*.pyc
+sidecar/*.log
+sidecar/*.log*
+sidecar/*.jsonl
+
+# 发行压缩包（源码仓库不放二进制发行物）
+*.zip
+
+# IDE / 助手工件（不属于源码）
+.codebuddy/
+
+# 开发宿主与验收产物
+devhost.out.log
+devhost.err.log
+dome.txt
+ui-*.png
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+*.tmp

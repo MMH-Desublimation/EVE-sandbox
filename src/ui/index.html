@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EVE战局沙盘推演 V0.8</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./app.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <span class="brand">EVE 战局沙盒推演</span>
+      <nav id="nav">
+        <button class="nav-btn" data-page="import">① 数据导入</button>
+        <button class="nav-btn" data-page="library">② 配置库</button>
+        <button class="nav-btn" data-page="formation">③ 战场编成</button>
+        <button class="nav-btn" data-page="sim">④ 推演</button>
+      </nav>
+      <span id="status" class="status"></span>
+      <span id="ticker" class="ticker num">正在初始化…</span>
+      <!-- 诊断区：无头验证与性能实测用（不在界面上显示内容，仅保留文本供读取） -->
+      <span id="diag" class="diag num">init</span>
+    </header>
+
+    <!-- ① 数据导入 -->
+    <section id="page-import" class="page"></section>
+    <!-- ② 配置库 -->
+    <section id="page-library" class="page"></section>
+    <!-- ③ 战场编成 -->
+    <section id="page-formation" class="page"></section>
+
+    <!-- ④ 推演（三栏 + 底部时间线） -->
+    <main id="layout" class="page">
+      <aside id="left" class="pane pane-left"></aside>
+      <section id="center" class="pane pane-center">
+        <canvas id="map"></canvas>
+        <div id="map-toolbar" class="map-toolbar"></div>
+        <div class="map-hint">左键拖动平移 · 左键选择 · Ctrl+左键框选 · 滚轮缩放 · 右键指令</div>
+      </section>
+      <aside id="right" class="pane pane-right"></aside>
+      <footer id="bottom">
+        <div id="timeline" class="tl"></div>
+        <div id="events" class="ev"></div>
+      </footer>
+    </main>
+  </div>
+  <!-- 诊断钩子：把加载期错误写进 data-errs，便于无头模式读取（生产无害） -->
+  <script>
+    window.__errs = [];
+    window.__record = function (m) {
+      window.__errs.push(String(m));
+      document.documentElement.setAttribute("data-errs", window.__errs.join(" || "));
+    };
+    window.addEventListener("error", function (e) {
+      window.__record((e.message || "error") + " @" + (e.filename || "?") + ":" + (e.lineno || 0));
+    });
+    window.addEventListener("unhandledrejection", function (e) {
+      window.__record("rejection: " + (e.reason && e.reason.message ? e.reason.message : e.reason));
+    });
+  </script>
+  <script type="module">
+    import("./main.ts").catch(function (e) {
+      window.__record("import failed: " + (e && e.message ? e.message : e));
+    });
+  </script>
+</body>
+</html>

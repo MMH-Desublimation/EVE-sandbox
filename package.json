@@ -1,0 +1,31 @@
+{
+  "name": "eve-battle-sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EVE 战局沙盒推演 —— Windows 桌面程序（完全离线）",
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "dev": "node tools/dev-host.ts",
+    "build:ui": "node tools/build-ui.ts",
+    "manual": "node tools/make-manual.ts",
+    "perf-test": "node tools/perf-test.ts",
+    "pack": "node tools/pack.ts",
+    "smoke": "node --experimental-strip-types tools/smoke.ts",
+    "smoke:plain": "node tools/smoke.ts",
+    "engine-test": "node tools/engine-test.ts",
+    "theater-test": "node tools/theater-test.ts",
+    "ui-check": "node tools/browser-check.ts",
+    "typecheck": "tsc --noEmit",
+    "oracle:selftest": "py sidecar/_selftest.py all",
+    "oracle:e7": "py sidecar/_selftest_e7.py"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "docx": "^9.9.0",
+    "typescript": "^5.8.0"
+  }
+}
